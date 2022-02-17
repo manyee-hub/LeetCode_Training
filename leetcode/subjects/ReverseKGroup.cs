@@ -14,10 +14,11 @@ namespace leetcode.subjects{
             // 1 <= sz <= 5000
             // 0 <= Node.val <= 1000
             // 1 <= k <= sz
+            // 注意事项： 需要保留头节点、尾节点，进行前后组的节点连接
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
-            ListNode head = new ListNode(1,new ListNode(6,new ListNode(7,new ListNode(17,new ListNode(19)))));
-            ListNode res = new ReverseKGroup().MyMethod(head,1);
+            ListNode head = new ListNode(1,new ListNode(6,new ListNode(7,new ListNode(17,new ListNode(19,new ListNode(42,new ListNode(4,new ListNode(13))))))));
+            ListNode res = new ReverseKGroup().MyMethod(head,3);
             sw.Stop();
             while (res!=null)
             {
@@ -28,11 +29,30 @@ namespace leetcode.subjects{
         }
 
         public ListNode MyMethod(ListNode head, int k){
-            return head;
+            ListNode hair = new ListNode(0), pre = hair;
+            hair.next = head;
+            while(head != null){
+                for (int i = 0; i < k; ++i)
+                {
+                    
+                }
+            }
+            return hair.next;
+        }
+
+        public ListNode ReverseNode(ListNode pre,ListNode curr)
+        {
+            if(curr == null){
+                return pre;
+            }else{
+                var next = curr.next;
+                curr.next = pre;
+                return ReverseNode(curr,next);
+            }
         }
 
         public ListNode Official(ListNode head) {
-            return head;
+            return head;                                                                                                    
         }
     }
 }

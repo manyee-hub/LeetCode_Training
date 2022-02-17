@@ -18,8 +18,8 @@ namespace leetcode.subjects{
             ListNode item4 = new ListNode(1,new ListNode(2,new ListNode(9)));
             ListNode item5 = new ListNode(1);
             ListNode item6 = new ListNode(1);
-            ListNode[] list = new ListNode[2]{item5,item6};
-            ListNode res = new MergeKLists().MyMethod(list);
+            ListNode[] list = new ListNode[4]{item1,item2,item3,item4};
+            ListNode res = new MergeKLists().Official(list);
             sw.Stop();
             while (res!=null)
             {
@@ -58,8 +58,31 @@ namespace leetcode.subjects{
             return head;
         }
 
-        public ListNode Official(ListNode head) {
-            return head;
+        public ListNode Official(ListNode[] lists) {
+            return Merge(lists,0,lists.Length-1);
+        }
+        
+        public ListNode Merge(ListNode[] list, int start, int end)
+        {
+            if(start == end)
+                return list[start];
+            if(start > end)
+                return null;
+            int mid = start + end >>1;
+            return MergeTwoList(Merge(list,start,mid), Merge(list,mid+1,end));
+        }
+        public ListNode MergeTwoList(ListNode l1, ListNode l2) {
+            if (l1 == null) {
+                return l2;
+            } else if (l2 == null) {
+                return l1;
+            } else if (l1.val < l2.val) {
+                l1.next = MergeTwoList(l1.next, l2);
+                return l1;
+            } else {
+                l2.next = MergeTwoList(l1, l2.next);
+                return l2;
+            }
         }
     }
 }
