@@ -7,7 +7,7 @@ namespace leetcode.subjects{
             System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
             sw.Start();
             ListNode head =new ListNode(6,new ListNode(2,new ListNode(3,new ListNode(3,new ListNode(4,new ListNode(4,new ListNode(5)))))));
-            var res = new Partition().MyMethod(head,3);
+            var res = new Partition().Official(head,3);
             sw.Stop();
             while (res!=null)
             {
@@ -22,27 +22,38 @@ namespace leetcode.subjects{
         // -100 <= Node.val <= 100
         // -200 <= x <= 200
         public ListNode MyMethod(ListNode head, int x){
-            if(head==null || head.next==null)
-                return head;
-            ListNode curr = head, minHead = null, maxHead = null, min = null, max = null;
-            while(curr!=null){
-                var temp =  curr ;
-                curr = curr.next;
-                temp.next = null;
-                if(curr.val < x){
-                    if(minHead==null) minHead = min = temp;
-                    else min.next = temp;
-                }else{
-                    if(maxHead==null) maxHead = max = temp;
-                    else max.next = temp;
-                }
+        if(head==null || head.next==null)
+            return head;
+        ListNode curr = head, minHead = null, maxHead = null, min = null, max = null;
+        while(curr!=null){
+            var temp =  curr ;
+            if(curr.val < x){
+                if(minHead==null) minHead = min = temp;
+                else min = min.next = temp;
+            }else{
+                if(maxHead==null) maxHead = max = temp;
+                else max = max.next = temp;
             }
-            min.next = maxHead;
-            return minHead;
+            curr = curr.next;
+            temp.next = null;
+        }
+        if(min!=null)min.next = maxHead;
+        return minHead??maxHead;
         }
         
         public ListNode Official(ListNode head, int x) {
-            return head;
+            ListNode minHead = new ListNode(),maxHead = new ListNode(),min = minHead,max = maxHead;
+            while(head!=null){
+                if(head.val < x){
+                    min = min.next = head;
+                }else{
+                    max = max.next = head;
+                }
+                head = head.next;
+            }
+            min.next = maxHead.next;
+            max.next = null;
+            return minHead.next;
         }
     }
 }

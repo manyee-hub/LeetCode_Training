@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using leetcode.subjects;
+using System.Linq;
 
 namespace leetcode
 {
@@ -8,9 +7,8 @@ namespace leetcode
     {
         static void Main(string[] args)
         {
-            Partition.Run();
+            subjects.MaxArea.Run();
         }
-
     }
     
     public class ListNode {
